@@ -1,16 +1,10 @@
-# make_model_curves_simple.py
+# make_model_curves.py
 # -*- coding: utf-8 -*-
 """
-モデルごとに、平均の pass@k / D-pass@k 曲線だけを描画するシンプル版スクリプト。
-
-違い:
-- CI 線を描画しない（上下限なし）。
-- タイトルを描画しない（ax.set_title を呼ばない）。
-- それ以外の設定（色・linestyle・marker・marker大きさ・markevery・x軸logなど）は
-  元のスクリプトと同様にコード内で調整可能。
+モデルごとに、平均の pass@k / D-pass@k 曲線を描画するスクリプト。
 
 前提:
-- make_model_compare.py 等で作成された
+- make_model_compare.py などで作成された
   `model_compare_out/overall_curves_mean_and_D.csv` を入力に使う。
 - 列構成は以下を想定:
   model, track, k,
@@ -20,8 +14,14 @@
 
 出力:
 - モデルごとに PNG/SVG の図を出力する。
-  - <OUT_DIR>/<model>__pass_curves_simple.png
-  - <OUT_DIR>/<model>__dpass_curves_simple.png
+  - <OUT_DIR>/<model>__pass_curves.png
+  - <OUT_DIR>/<model>__dpass_curves.png
+
+描画仕様:
+- 各 track ごとに平滑な曲線（平均）を描画。
+- 95%CI は同色の点線で上下限を描画。
+- 平均線・CI 線ともに track に応じた marker を使用。
+- marker の大きさと、marker を置く k（markevery）を設定可能。
 """
 
 from pathlib import Path
@@ -63,7 +63,7 @@ TRACK_LINESTYLES: Dict[str, str] = {
     "feedback": "-",
 }
 
-# track ごとのマーカー
+# track ごとのマーカー（平均 & CI 線に適用）
 TRACK_MARKERS: Dict[str, str] = {
     "baseline": "o",
     "CoT":      "s",
@@ -87,6 +87,10 @@ X_AXIS_SCALE: str = "log"  # "linear" or "log"
 
 # x軸が log のときの目盛り（None の場合は matplotlib デフォルト）
 LOG_X_TICKS: List[int] = [1, 2, 5, 10, 20, 50, 100]
+
+# CI 線のスタイル（上限と下限で違う種類にする）
+CI_LOWER_LS = "--"  # 下限
+CI_UPPER_LS = ":"   # 上限
 
 # 軸・見た目関係
 Y_LIM_PASS = (0.6, 1.00)   # pass@k の y 軸範囲
@@ -133,7 +137,7 @@ def compute_markevery(k_values: np.ndarray) -> List[int] | None:
     - 一致する k が1つもない場合は []（=marker なし）を返す。
     """
     if not MARKER_K_LIST:
-        return None  # 全点に marker
+        return None  # 全点
     idx = [i for i, kv in enumerate(k_values) if int(kv) in MARKER_K_LIST]
     return idx  # 空なら marker は実質なし
 
@@ -142,6 +146,8 @@ def plot_metric_curves_for_model(
     df: pd.DataFrame,
     model_name: str,
     metric: str,
+    ci_lo_col: str,
+    ci_hi_col: str,
     curve_label: str,   # "pass@k" or "D-pass@k"
     y_label: str,
     y_lim: tuple,
@@ -150,8 +156,9 @@ def plot_metric_curves_for_model(
     """
     1つのモデルについて、指定した指標（mean_pass / D_pass）を
     track ごとに k 対応曲線として描画する。
-    CI 線は一切描画しない。
-    タイトルも描画しない。
+    CI は同色の点線で上下限を描画し、凡例には
+    CI lower / CI upper のスタイルも追加する。
+    marker は平均線・CI 線の両方に適用される。
     """
     df_m = df[df["model"] == model_name].copy()
     if df_m.empty:
@@ -176,7 +183,7 @@ def plot_metric_curves_for_model(
         k_vals = df_mt["k"].to_numpy()
         markevery = compute_markevery(k_vals)
 
-        # 平均曲線のみ描画
+        # 平均曲線（線種・マーカー指定）
         line_mean, = ax.plot(
             df_mt["k"],
             df_mt[metric],
@@ -190,6 +197,32 @@ def plot_metric_curves_for_model(
         )
         track_handles.append(line_mean)
 
+        # 95%CI の下限（点線その1）
+        if ci_lo_col in df_mt.columns:
+            ax.plot(
+                df_mt["k"],
+                df_mt[ci_lo_col],
+                color=color,
+                linestyle=CI_LOWER_LS,
+                marker=marker if marker else None,
+                markersize=MARKER_SIZE if marker else None,
+                markevery=markevery,
+                linewidth=1.0,
+            )
+
+        # 95%CI の上限（点線その2）
+        if ci_hi_col in df_mt.columns:
+            ax.plot(
+                df_mt["k"],
+                df_mt[ci_hi_col],
+                color=color,
+                linestyle=CI_UPPER_LS,
+                marker=marker if marker else None,
+                markersize=MARKER_SIZE if marker else None,
+                markevery=markevery,
+                linewidth=1.0,
+            )
+
     # x軸スケール設定
     if X_AXIS_SCALE == "log":
         ax.set_xscale("log")  # base=10 デフォルト
@@ -200,7 +233,8 @@ def plot_metric_curves_for_model(
     else:
         ax.set_xscale("linear")
 
-    # タイトルは描かない
+    # タイトル: {model} - {curve}
+    # ax.set_title(f"{model_name} - {curve_label}")
     ax.set_xlabel("k")
     ax.set_ylabel(y_label)
     if y_lim is not None:
@@ -208,9 +242,23 @@ def plot_metric_curves_for_model(
     if GRID:
         ax.grid(True, linestyle=":", linewidth=0.5, alpha=0.7)
 
-    # 凡例（右下）: track ごとのラベルのみ
+    # 凡例（右下）: 先頭に CI lower / CI upper、その後に track ごとのラベル
     if SHOW_LEGEND and track_handles:
-        handles = track_handles
+        ci_lower_handle = Line2D(
+            [0], [0],
+            color="black",
+            linestyle=CI_LOWER_LS,
+            linewidth=1.0,
+            label="CI lower",
+        )
+        ci_upper_handle = Line2D(
+            [0], [0],
+            color="black",
+            linestyle=CI_UPPER_LS,
+            linewidth=1.0,
+            label="CI upper",
+        )
+        handles = [ci_lower_handle, ci_upper_handle] + track_handles
         labels = [h.get_label() for h in handles]
         ax.legend(handles, labels, loc=LEGEND_LOC)
 
@@ -235,11 +283,13 @@ def main():
         safe_model = "".join(ch if ch.isalnum() or ch in "-_." else "_" for ch in model)
 
         # 平均 pass@k 曲線
-        pass_out = outdir / f"{safe_model}__pass_curves_simple.png"
+        pass_out = outdir / f"{safe_model}__pass_curves.png"
         plot_metric_curves_for_model(
             df=df,
             model_name=model,
             metric="mean_pass",
+            ci_lo_col="mean_ci_lo",
+            ci_hi_col="mean_ci_hi",
             curve_label="pass@k",
             y_label="pass@k",
             y_lim=Y_LIM_PASS,
@@ -247,11 +297,13 @@ def main():
         )
 
         # D-pass@k 曲線
-        dpass_out = outdir / f"{safe_model}__dpass_curves_simple.png"
+        dpass_out = outdir / f"{safe_model}__dpass_curves.png"
         plot_metric_curves_for_model(
             df=df,
             model_name=model,
             metric="D_pass",
+            ci_lo_col="D_ci_lo",
+            ci_hi_col="D_ci_hi",
             curve_label="D-pass@k",
             y_label="D-pass@k",
             y_lim=Y_LIM_DPASS,

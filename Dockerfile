@@ -1,0 +1,31 @@
+FROM debian:bookworm-slim
+
+ENV LANG=C.UTF-8 \
+    LC_ALL=C.UTF-8
+
+# g++ / timeout / date(%N) / /usr/bin/time / bash / awk
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential g++ \
+    time coreutils bash gawk \
+ && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /work
+CMD ["/bin/bash"]
+
+
+FROM python:3.12-slim
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    LANG=C.UTF-8 \
+    LC_ALL=C.UTF-8
+
+# /usr/bin/time, timeout(date/awk等)を使うための必須ツール
+# - time: /usr/bin/time
+# - coreutils: timeout / date(ナノ秒%N対応)
+# - bash: /bin/bash -lcとTIMEFORMATを使うため
+# - gawk: awk(elapsed_secをprintfで整形)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    time coreutils bash gawk \
+ && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /work
