@@ -1,0 +1,25 @@
+track,w_bin,model,pass@10 (mean [95%CI]),D-pass@10 (mean [95%CI]),n_problems
+CoT,Q1 (easy),Llama-3.1-8B-Instruct,"0.749 [0.375,0.999]","0.744 [0.375,0.999]",8
+CoT,Q1 (easy),deepseek-coder-7b-instruct-v1.5,"0.892 [0.692,1.000]","0.819 [0.581,1.000]",8
+CoT,Q2,Llama-3.1-8B-Instruct,"0.868 [0.610,1.000]","0.852 [0.572,1.000]",7
+CoT,Q2,deepseek-coder-7b-instruct-v1.5,"0.728 [0.442,1.000]","0.734 [0.415,1.000]",7
+CoT,Q3,Llama-3.1-8B-Instruct,"0.900 [0.712,1.000]","0.918 [0.758,1.000]",11
+CoT,Q3,deepseek-coder-7b-instruct-v1.5,"0.900 [0.710,1.000]","0.918 [0.757,1.000]",11
+CoT,Q4 (hard),Llama-3.1-8B-Instruct,"0.998 [0.996,1.000]","0.998 [0.996,1.000]",4
+CoT,Q4 (hard),deepseek-coder-7b-instruct-v1.5,"0.994 [0.983,1.000]","0.994 [0.983,1.000]",4
+baseline,Q1 (easy),Llama-3.1-8B-Instruct,"0.868 [0.618,1.000]","0.780 [0.417,1.000]",8
+baseline,Q1 (easy),deepseek-coder-7b-instruct-v1.5,"0.836 [0.599,1.000]","0.734 [0.499,1.000]",8
+baseline,Q2,Llama-3.1-8B-Instruct,"0.648 [0.295,0.933]","0.615 [0.273,0.933]",7
+baseline,Q2,deepseek-coder-7b-instruct-v1.5,"0.728 [0.442,1.000]","0.734 [0.415,1.000]",7
+baseline,Q3,Llama-3.1-8B-Instruct,"0.905 [0.723,1.000]","0.923 [0.762,1.000]",11
+baseline,Q3,deepseek-coder-7b-instruct-v1.5,"0.900 [0.710,1.000]","0.918 [0.757,1.000]",11
+baseline,Q4 (hard),Llama-3.1-8B-Instruct,"0.989 [0.973,1.000]","0.989 [0.972,1.000]",4
+baseline,Q4 (hard),deepseek-coder-7b-instruct-v1.5,"0.955 [0.864,1.000]","0.955 [0.864,1.000]",4
+feedback,Q1 (easy),Llama-3.1-8B-Instruct,"0.963 [0.890,1.000]","0.937 [0.831,1.000]",8
+feedback,Q1 (easy),deepseek-coder-7b-instruct-v1.5,"0.941 [0.825,1.000]","0.900 [0.731,1.000]",8
+feedback,Q2,Llama-3.1-8B-Instruct,"0.858 [0.601,1.000]","0.843 [0.563,1.000]",7
+feedback,Q2,deepseek-coder-7b-instruct-v1.5,"0.914 [0.808,1.000]","0.916 [0.804,1.000]",7
+feedback,Q3,Llama-3.1-8B-Instruct,"0.909 [0.727,1.000]","0.928 [0.769,1.000]",11
+feedback,Q3,deepseek-coder-7b-instruct-v1.5,"0.909 [0.727,1.000]","0.928 [0.769,1.000]",11
+feedback,Q4 (hard),Llama-3.1-8B-Instruct,"0.999 [0.998,1.000]","0.999 [0.998,1.000]",4
+feedback,Q4 (hard),deepseek-coder-7b-instruct-v1.5,"1.000 [1.000,1.000]","1.000 [1.000,1.000]",4
