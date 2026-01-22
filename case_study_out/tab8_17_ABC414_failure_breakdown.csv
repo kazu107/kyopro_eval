@@ -1,0 +1,7 @@
+﻿model,problem_id,track,attempts,AC,WA,RE,TLE,CE,MLE,OTHER,pass@1,pass@10,pass@100
+Llama-3.1-8B-Instruct,ABC414,baseline,100,7,93,0,0,0,0,0,0.0,1.0,1.0
+Llama-3.1-8B-Instruct,ABC414,CoT,100,29,71,0,0,0,0,0,1.0,1.0,1.0
+Llama-3.1-8B-Instruct,ABC414,feedback,362,20,339,3,0,0,0,0,0.0,1.0,1.0
+deepseek-coder-7b-instruct-v1.5,ABC414,baseline,100,0,100,0,0,0,0,0,0.0,0.0,0.0
+deepseek-coder-7b-instruct-v1.5,ABC414,CoT,100,0,100,0,0,0,0,0,0.0,0.0,0.0
+deepseek-coder-7b-instruct-v1.5,ABC414,feedback,395,9,386,0,0,0,0,0,0.0,0.0,1.0
