@@ -1,0 +1,6 @@
+I want you to revisit your previous step‑by‑step reasoning and code.
+When running your previously generated code, some test cases produced incorrect output:
+
+passed test cases: 3/20
+failed test cases: 17/20
+time limit exceeded: 0/20

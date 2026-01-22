@@ -1,0 +1,42 @@
+Please generate Python code to solve the following competitive programming problem.
+---
+#### Time Limit: 2 sec, Memory Limit: 1024 MB
+### Problem Statement
+You are given a string $T$ consisting of lowercase English letters and $?$ , and a string $U$ consisting of lowercase English letters.
+The string $T$ is obtained by taking some lowercase-only string $S$ and replacing exactly four of its characters with $?$ .
+Determine whether it is possible that the original string $S$ contained $U$ as a contiguous substring.
+### Constraints
+- $T$ is a string of length between 4 and 10, inclusive, consisting of lowercase letters and $?$.
+- $T$ contains exactly four occurrences of $?$.
+- $U$ is a string of length between 1 and $|T|$ , inclusive, consisting of lowercase letters.
+
+---
+
+### Input
+
+```
+T
+U
+```
+
+### Output
+
+Print Yes if it is possible that the original string $S$ contained $U$ as a contiguous substring; otherwise, print No.
+
+---
+
+### Example Input 1
+
+```
+tak??a?h?
+nashi
+```
+
+### Example Output 1
+
+```
+Yes
+```
+For example, if $S$ is takanashi, it contains nashi as a contiguous substring.
+
+---

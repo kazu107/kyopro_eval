@@ -1,0 +1,62 @@
+Please solve the following competitive programming problem in Python.
+First, think through your approach step by step—explain your reasoning in English—and only after that provide the complete, final code.
+
+---
+
+#### Time Limit: 2 sec, Memory Limit: 1024 MB
+
+### Problem Statement
+For the integers $1, 2, \ldots, N$, determine how many times "Fizz", "Buzz", and "FizzBuzz" are output according to the following rules:
+1. If $i$ is divisible by $A$, output "Fizz".
+2. If $i$ is divisible by $B$, output "Buzz".
+3. If $i$ is divisible by both $A$ and $B$, output "FizzBuzz" (this takes precedence over the above rules).
+4. Otherwise, output the number $i$ as a string.
+
+### Constraints
+- $1 \leq N \leq 10^{12}$
+- $1 \leq A, B \leq N$
+
+---
+
+### Input
+
+```
+N A B
+```
+
+### Output
+```
+f b fb
+```
+- $f$ is the count of "Fizz" outputs.
+- $b$ is the count of "Buzz" outputs.
+- $fb$ is the count of "FizzBuzz" outputs.
+---
+
+### Example Input 1
+
+```
+15 3 5
+```
+
+### Example Output 1
+
+```
+4 2 1
+```
+
+(1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz) results in "Fizz" being output 4 times, "Buzz" 2 times, and "FizzBuzz" 1 time.
+
+---
+
+### Example Input 2
+
+```
+240080137641 231255966418 111300899613
+```
+
+### Example Output 2
+
+```
+1 2 0
+```

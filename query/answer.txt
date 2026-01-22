@@ -1,0 +1,14 @@
+The error you're experiencing is due to the fact that the code is trying to calculate the divisors of A and B using a recursive approach, which is not necessary in this case.
+
+Here's an updated version of the code that calculates the counts of "Fizz", "Buzz", and "FizzBuzz" directly without using recursion:
+
+```python
+import math
+
+def solve(N, A, B):
+    count_A = N // A
+    count_B = N // B
+    count_FB = N // (A * B)
+    count_A -= count_FB
+    count_B -= count_FB
+    return count_A
