@@ -1,0 +1,4 @@
+model,track,pass_at_1,pass_at_10,pass_at_100,auc_logk,k50,k90
+Llama-3.1-8B-Instruct,CoT,0.019417475728155616,0.2462958895792112,0.3333333333333333,0.17342782863934103,0.5,0.0
+Llama-3.1-8B-Instruct,baseline,0.0,0.0,0.0,0.0,0.5,0.0
+Llama-3.1-8B-Instruct,feedback,1.0,1.0,1.0,1.0,0.5,1.0

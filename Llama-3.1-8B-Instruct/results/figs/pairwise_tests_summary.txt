@@ -1,0 +1,13 @@
+Pairwise tests (@1/@10/@100/AUC):
+CoT -> baseline | pass@1: Δ=-0.0027 [-0.1053,0.0880], sign-test p=0.2379
+CoT -> baseline | pass@10: Δ=-0.0190 [-0.1200,0.0830], sign-test p=0.3018
+CoT -> baseline | pass@100: Δ=-0.0333 [-0.1667,0.0667], sign-test p=1
+CoT -> baseline | AUC_logk: Δ=-0.0730 [-0.4946,0.4062], sign-test p=0.2379
+CoT -> feedback | pass@1: Δ=0.1347 [0.0646,0.2183], sign-test p=6.604e-05
+CoT -> feedback | pass@10: Δ=0.0583 [-0.0015,0.1480], sign-test p=0.001312
+CoT -> feedback | pass@100: Δ=0.0667 [0.0000,0.1667], sign-test p=0.5
+CoT -> feedback | AUC_logk: Δ=0.3479 [0.0699,0.7381], sign-test p=6.604e-05
+baseline -> feedback | pass@1: Δ=0.1373 [0.0790,0.2157], sign-test p=2.384e-07
+baseline -> feedback | pass@10: Δ=0.0773 [0.0088,0.1661], sign-test p=3.815e-06
+baseline -> feedback | pass@100: Δ=0.1000 [0.0000,0.2000], sign-test p=0.25
+baseline -> feedback | AUC_logk: Δ=0.4209 [0.1390,0.8099], sign-test p=2.384e-07

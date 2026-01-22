@@ -1,0 +1,10 @@
+track,metric,ref_model,cmp_model,n_common,mean_diff,D_mean_diff,wins,ties,losses,sign_p,sign_p_holm
+baseline,pass_at_1,Llama-3.1-8B-Instruct,deepseek-coder-7b-instruct-v1.5,30,0.057333333333333354,0.06919607843137257,16,7,7,0.0931396484375,0.0931396484375
+baseline,pass_at_10,Llama-3.1-8B-Instruct,deepseek-coder-7b-instruct-v1.5,30,0.004181317443513725,0.009238628874913713,13,10,7,0.26317596435546875,0.26317596435546875
+baseline,pass_at_100,Llama-3.1-8B-Instruct,deepseek-coder-7b-instruct-v1.5,30,0.06666666666666667,0.05490196078431373,3,26,1,0.625,0.625
+CoT,pass_at_1,Llama-3.1-8B-Instruct,deepseek-coder-7b-instruct-v1.5,30,0.062000000000000006,0.051078431372549034,17,5,8,0.10775214433670044,0.10775214433670044
+CoT,pass_at_10,Llama-3.1-8B-Instruct,deepseek-coder-7b-instruct-v1.5,30,0.005134861220481065,-0.01702608731814284,11,11,8,0.6476058959960938,0.6476058959960938
+CoT,pass_at_100,Llama-3.1-8B-Instruct,deepseek-coder-7b-instruct-v1.5,30,0.03333333333333333,-0.0039215686274509795,2,27,1,1.0,1.0
+feedback,pass_at_1,Llama-3.1-8B-Instruct,deepseek-coder-7b-instruct-v1.5,30,0.028333333333333332,0.051078431372549034,13,9,8,0.38331031799316406,0.38331031799316406
+feedback,pass_at_10,Llama-3.1-8B-Instruct,deepseek-coder-7b-instruct-v1.5,30,0.007296039611000712,0.010938572857783003,9,14,7,0.803619384765625,0.803619384765625
+feedback,pass_at_100,Llama-3.1-8B-Instruct,deepseek-coder-7b-instruct-v1.5,30,0.0,0.0,0,30,0,,1.0

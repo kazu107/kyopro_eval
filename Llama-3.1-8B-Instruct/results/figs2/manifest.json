@@ -1,0 +1,30 @@
+{
+  "models": [
+    "Llama-3.1-8B-Instruct"
+  ],
+  "tracks": [
+    "CoT",
+    "baseline",
+    "feedback"
+  ],
+  "pass_k_for_heatmap": 10,
+  "k_max": 100,
+  "tsne": {
+    "enabled": true,
+    "perplexity": 6,
+    "n_iter": 2000
+  },
+  "random_seed": 42,
+  "files": [
+    "heatmap_pass_at_10.csv",
+    "heatmap_pass_at_10.png",
+    "heatmap_pass_curve_Llama-3.1-8B-Instruct_CoT.csv",
+    "heatmap_pass_curve_Llama-3.png",
+    "map_pca_coords.csv",
+    "map_pca_difficulty.png",
+    "map_tsne_coords.csv",
+    "map_tsne_difficulty.png",
+    "radar_Llama-3.png",
+    "radar_values_normalized.csv"
+  ]
+}
