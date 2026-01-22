@@ -1,0 +1,10 @@
+track,k,alt_weight,kendall_tau,spearman_rho,n_models
+baseline,1,flat,1.0,0.9999999999999999,2
+baseline,10,flat,1.0,0.9999999999999999,2
+baseline,100,flat,1.0,0.9999999999999999,2
+CoT,1,flat,1.0,0.9999999999999999,2
+CoT,10,flat,-1.0,-0.9999999999999999,2
+CoT,100,flat,-1.0,-0.9999999999999999,2
+feedback,1,flat,1.0,0.9999999999999999,2
+feedback,10,flat,1.0,0.9999999999999999,2
+feedback,100,flat,0.0,,2
